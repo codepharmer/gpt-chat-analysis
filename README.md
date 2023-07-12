@@ -1,5 +1,3 @@
-Absolutely, I understand. Here's the revised README:
-
 # Chat Data Analysis Project
 
 ## Introduction
