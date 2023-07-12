@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This project involves an in-depth analysis of chat data between users and an AI assistant. The data consists of multiple conversations, each containing various messages from both the user and the assistant. Key objectives of this analysis are:
+This project involves general analysis of chat data between users and an AI assistant. The data consists of multiple conversations, each containing various messages from both the user and the assistant. Key objectives of this analysis are:
 
 - Understanding sentiment trends in the messages.
 - Identifying the busiest times for user interaction.
