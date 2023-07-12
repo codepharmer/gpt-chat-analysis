@@ -1,6 +1,7 @@
 # Chat Data Analysis Project
 
 ## Introduction
+Please see [this link](https://help.openai.com/en/articles/7260999-how-do-i-export-my-chatgpt-history-and-data) for instructions on how to download your own data from chatgpt.
 
 This project involves general analysis of chat data between users and an AI assistant. The data consists of multiple conversations, each containing various messages from both the user and the assistant. Key objectives of this analysis are:
 
