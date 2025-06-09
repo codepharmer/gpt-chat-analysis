@@ -21,7 +21,6 @@ TESTING_MODE = False
 TEST_CHUNK_LIMIT = 5
 TEST_FACT_LIMIT = 10
 
-client = openai.OpenAI(api_key="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")  # Initialize OpenAI client
 
 # Load spaCy model + coreference
 nlp = spacy.load("en_core_web_sm")
