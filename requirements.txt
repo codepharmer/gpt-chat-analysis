@@ -1,0 +1,6 @@
+openai
+numpy>=1.24.0
+networkx>=3.0
+scikit-learn>=1.2.0
+spacy>=3.5.0
+coreferee>=1.1.0
