@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 from .io import load_and_clean_log
 from .segments import (
@@ -16,9 +16,10 @@ from .analysis import (
     aggregate_facts,
     synthesize_summary,
 )
+from .cache_utils import get_cache_dir, load_chunk, save_chunk
 
 
-def run_pipeline(log_path: str) -> Dict[str, Any]:
+def run_pipeline(log_path: str, cache_dir: Optional[str] = None) -> Dict[str, Any]:
     print(f"Loading chat log from: {log_path}")
     turns = load_and_clean_log(log_path)
     print(f"Found {len(turns)} chat turns")
@@ -32,6 +33,8 @@ def run_pipeline(log_path: str) -> Dict[str, Any]:
     print("Segmenting text into chunks...")
     chunks = segment_text(user_text)
     print(f"Created {len(chunks)} chunks for processing")
+
+    cache_path = get_cache_dir(log_path, cache_dir)
 
     if not chunks:
         return {"narrative": "No meaningful content found in user messages.", "facts": {"background": [], "style": [], "goals": [], "lifestyle": [], "interests": []}}
@@ -47,8 +50,18 @@ def run_pipeline(log_path: str) -> Dict[str, Any]:
     local_summaries = []
     for i, chunk in enumerate(test_chunks):
         print(f"Processing chunk {i+1}/{len(test_chunks)}")
+        cached = load_chunk(cache_path, chunk)
+        if cached is not None:
+            print("  loaded from cache")
+            local_summaries.append(cached)
+            continue
+
         struct = extract_chunk_info(chunk)
-        struct = summarize_chunk(chunk)
+        summary = summarize_chunk(chunk)
+        for key in struct:
+            struct[key].extend(summary.get(key, []))
+            struct[key] = list(dict.fromkeys(struct[key]))
+        save_chunk(cache_path, chunk, struct)
         local_summaries.append(struct)
 
     print("Aggregating facts...")
