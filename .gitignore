@@ -3,3 +3,10 @@ chatgpt_072023
 out_file.txt
 sampled_conversations.json
 .venv
+__pycache__ 
+chat_analysis/__pycache__
+queued_batch_results_**.json
+queued_batch_template_output**.json
+sectioned_aggregation_**.json
+merged_conversations.json
+outputs

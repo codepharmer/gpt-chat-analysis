@@ -5,9 +5,11 @@ import openai
 import os
 try:
     client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-    # client.
+    # Add async client for concurrent operations
+    async_client = openai.AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 except AttributeError:  # fall back for older library versions
     client = openai
+    async_client = None
 
 
 def get_embeddings(texts: List[str], model: str = "text-embedding-3-large") -> List[List[float]]:
